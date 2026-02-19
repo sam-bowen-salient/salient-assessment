@@ -826,6 +826,8 @@ document.getElementById('assessmentForm').addEventListener('submit',function(e){
   const lead={...data,timestamp:new Date().toISOString(),leadScore};
   console.log('Lead captured:',lead);
   try{const leads=JSON.parse(localStorage.getItem('salient_leads')||'[]');leads.push(lead);localStorage.setItem('salient_leads',JSON.stringify(leads))}catch(e){}
+  // Send to CRM
+  try{fetch('https://crm.salient-group.com/api/leads/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'assessment',name:data.contactName||'',email:data.email||'',phone:data.phone||'',company:data.businessName||'',vertical:data.industry||'',assessmentData:{facilityType:data.facilityType||'',squareFootage:data.squareFootage||'',concerns:(data.concerns||''),riskScore:leadScore}})})}catch(e){}
 
   // Show loading
   document.getElementById('formSection').style.display='none';
