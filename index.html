@@ -11,7 +11,6 @@
 :root{--navy:#131F2D;--white:#FFFFFF;--blue:#2563EB;--gray:#F8FAFC;--border:#E2E8F0;--text:#334155;--text-light:#64748B;--green:#10B981;--yellow:#F59E0B;--red:#EF4444;--orange:#F97316;--dark-slate:#314151;--steel:#D6D7D8;--med-gray:#606060}
 body{font-family:'Poppins',sans-serif;background:var(--gray);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
 
-/* Header */
 header{background:var(--navy);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25)}
 .logo{display:flex;align-items:center;gap:.5rem}
 .logo img{height:80px;width:auto}
@@ -20,18 +19,17 @@ header{background:var(--navy);padding:1rem 2rem;display:flex;align-items:center;
 .header-phone{color:var(--steel);font-size:.75rem;font-weight:500;text-decoration:none;letter-spacing:.02em}
 .header-phone:hover{color:var(--white)}
 
-/* Layout */
 .container{max-width:740px;margin:0 auto;padding:2rem 1.25rem 4rem}
 h1{font-size:1.75rem;font-weight:700;color:var(--navy);text-align:center;margin-bottom:.35rem}
 .subtitle{text-align:center;color:var(--text-light);font-size:.95rem;margin-bottom:.5rem}
 .trust-line{text-align:center;color:var(--text-light);font-size:.75rem;margin-bottom:2rem;opacity:.7}
 .card{background:var(--white);border-radius:16px;padding:2rem;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 20px rgba(0,0,0,.05)}
 .section-title{font-size:.75rem;font-weight:600;color:var(--dark-slate);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.section-subtitle{font-size:.72rem;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin:1.5rem 0 1rem;padding-bottom:.5rem;border-bottom:1px dashed var(--border)}
 .spacer{height:1.5rem}
 footer{text-align:center;padding:2rem 1rem;color:var(--text-light);font-size:.75rem}
 footer a{color:var(--blue);text-decoration:none}
 
-/* Progress Bar */
 .progress-wrap{margin-bottom:2rem}
 .progress-steps{display:flex;justify-content:space-between;position:relative;margin-bottom:.5rem}
 .progress-steps::before{content:'';position:absolute;top:14px;left:0;right:0;height:2px;background:var(--border)}
@@ -43,20 +41,22 @@ footer a{color:var(--blue);text-decoration:none}
 .p-dot.done{background:var(--green);border-color:var(--green);color:var(--white)}
 .p-label{font-size:.65rem;color:var(--text-light);font-weight:500}
 
-/* Form */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .form-grid .full{grid-column:1/-1}
 .field{display:flex;flex-direction:column;gap:.3rem}
 .field label{font-size:.78rem;font-weight:500;color:var(--navy)}
 .field .hint{font-size:.68rem;color:var(--text-light);font-weight:400}
-.field input,.field select{padding:.65rem .8rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:.88rem;color:var(--text);transition:border-color .2s,box-shadow .2s;background:var(--white)}
+.field input,.field select,.field textarea{padding:.65rem .8rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:.88rem;color:var(--text);transition:border-color .2s,box-shadow .2s;background:var(--white)}
+.field textarea{resize:vertical;min-height:60px}
 .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748B' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;padding-right:2.2rem}
-.field input:focus,.field select:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(19,31,45,.08)}
-.field input::placeholder{color:#94A3B8}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(19,31,45,.08)}
+.field input::placeholder,.field textarea::placeholder{color:#94A3B8}
 .field input:invalid:not(:placeholder-shown){border-color:var(--red)}
 .field-error{font-size:.7rem;color:var(--red);min-height:.85rem}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:.5rem .75rem;margin-top:.25rem}
+.checkbox-group label{display:flex;align-items:center;gap:.35rem;font-size:.82rem;font-weight:400;color:var(--text);cursor:pointer}
+.checkbox-group input[type="checkbox"]{width:16px;height:16px;accent-color:var(--navy)}
 
-/* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--navy);color:var(--white);border:none;padding:.8rem 2rem;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;width:100%}
 .btn:hover{background:var(--dark-slate);transform:translateY(-1px);box-shadow:0 4px 12px rgba(19,31,45,.3)}
 .btn:active{transform:translateY(0)}
@@ -66,18 +66,18 @@ footer a{color:var(--blue);text-decoration:none}
 .btn-back:hover{border-color:var(--blue);color:var(--blue);background:transparent;box-shadow:none;transform:none}
 .btn-next{flex:.6}
 
-/* Step visibility */
 .step{display:none} .step.active{display:block;animation:fadeUp .4s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
-/* Loading */
+.vertical-section{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .4s ease,margin .3s ease;margin-top:0}
+.vertical-section.visible{max-height:3000px;opacity:1;margin-top:.5rem}
+
 #loadingScreen{display:none;text-align:center;padding:4rem 2rem}
 .spinner{width:60px;height:60px;border:4px solid var(--steel);border-top:4px solid var(--navy);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1.5rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-size:1rem;color:var(--navy);font-weight:500}
 .loading-sub{font-size:.8rem;color:var(--text-light);margin-top:.35rem}
 
-/* Results */
 #results{display:none}
 .report-header{background:var(--navy);border-radius:16px;padding:2rem;text-align:center;color:var(--white);margin-bottom:1.5rem}
 .report-header h2{font-size:1.4rem;font-weight:700;margin-bottom:.25rem}
@@ -172,7 +172,7 @@ footer a{color:var(--blue);text-decoration:none}
 
 <header>
   <div class="logo">
-    <img src="data:image/png;base64,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" alt="Salient Group">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABmCAYAAAAAuFU5AAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAAlgAAAAAQAACWAAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAHigAwAEAAAAAQAAAGYAAAAA8ZKl7wAAAAlwSFlzAAFxGAABcRgB7MGwCAAADABJREFUeAHtm3uwVVUdxwUURFQCAVHeDwEVBFFUBBSMlxGICplDVjKOijVT/tPIOBqMVjYT46PMMXqYOozTkE4lERB2ARWLEghMEIWRlxKiKS8V8fb5HPa67Xu9F+65h4vh/H4zn7PWXnvttdf6/tb6rXUOl2OOCQsFQoFQIBQIBUKBUCAUCAVCgVAgFAgFQoFQIBQIBUKBUCAUCAVCgVAgFAgFQoFQIBQIBUKBUCAUCAVCgVAgFAgFQoFQIBQIBUKBUCAUCAVCgVAgFAgFQoFQIBQIBUKBUCAUCAVCgVAgFAgFQoH6V6DB4XxFeXl5Y9o7IeN40uOgIWjl8BF8AHthN7zfoEEDy8PqSYGSHYxTm9C3U6AVdIJuWXoqaXPQ6dp+0KnbYTOsh1fhLdiOo3eShh1mBersYBzrSm0HZ8FQGAQ9QKfWxlzJm2AZlMELsAVH7yANO0wKFO1gHHss7+4AA2EiDIPk1I/J7wFXqmFYJ1rme8SQ7YpvluG15upeDr+FObABR+8iDStRgaIcjHOtPxhuhPFwImiG122wBQy7hl/DsOU62b1XZ1q/LXQBQ3lnMJQb4tNevZT8TJgdYRsVSrRiHezBqQwuzN77Hunr8BwshJfhQzgJTgZXdiOYg7M+YIK0Jq9zXeHvQ0e4BIaB4V1n62ijwEiesd2wEhQw3BZjiq8TtH0wDRaAZefCVXAGnA462HCsM/uAK3ok3A+udlf5KngRZoOO/xH0BPs5g3pbyZdqToxBUPFO8qtoe0muYSf5fPgHTAZX+++gkvFMxeShf7bnBPqQcn9LqJMdDgenmd+CHtwBnqqdiQ5CB14CY+Bi0CHdwVC4EJwEhqC2UGtjwIb4e3jgJhgGTjLDnN/LH+Xe49RJ/XKSDYdHKNvAvV+SHwtfgJ9DqaYjHE+nXEO/IZ93sGHXCTgLhsBt9MMIUuFQ8jWZY6uzlepgn3ff0FkO8kzQgQNA5zlrHwXD02UwCtyzDD3WHQh/gj+CVuvB4KznEekNnjkLPMgY0q6F28B3bwPtS2B08WucK9l3OBGu43oW7ewhn7c0MfJlB8s7sZ6Bslyltbl8yh7Hu9bzzh9S8DB8A5qBq7TerFQHH0fPVsJ0GAYjwdPxhXA2DASd5wT4CRiWR8BwsJ6hrQ+0gylQK0MknWTbbcAT6C5wX3biGCnM+zWmFclE89gEcLWJ/T4fnIiLIG/Nea5lrmA/jnk3d1016+r8F6S90/s0Ud6I53xXVXuaAif9ZPDs8CHUm5XqYA8Jhl1XyEx4HnSgq7Vvlu9HOgT+AGUwA3TKeDDEuv+eA1oxs1lHTgLbehtcxb5nAewAbQz0AB3gKtsILcBn7eNkHPEcjnAcThrtm5Ce9/oN6txDHfumXnnNfMbysdAZ8uYWshVSuw29STtuLw+QdXIZzYxC1ZmRwXel56urc8iyfGcPWbmaCvso6w+3wBzQye4ti2EUDAVX8lVgvUvgAQa5gEG+SX4yOBAFrrUpNuZk6ga9wBXpSngW3Gvf477CnAZuAY/Bn8GV2ASMHtvBdzeFnbAZXIUtM0gK1phP29KRy8AJkmw3GZ/xfvdUmKU+p+0F62zwQqN/huofkL0Z7FN1K30t5fPBcdXZSnWwL7YNBesJz9P5eaRzGMDfScvgcrgMusLXwQmwAhxYsfsdjxww3uMe/BpXZ8CJsAv8Hr6VVBG5Xe72oGOXc51E3MP1Eu4ZHk8GJ6lmf6cXcpU/9vBs6uevuOVkSuYkmQYNU0GWOhm2Zfl3SG13Y3adEp3nJHdyV+dEdVwJjuvIGKI0BX9L1vwd+XS43ovMrqnaE8o7wJ2pAulU65D2AtvQDJ+WzStcHfgwAoSVqEDVmXeo5pzthiXNldsKnJnOWM2QWcmY/ZsoWJoV+uy/s/xZpCmM+ROjYe6U7J4rxrAZVqICRTkYZxlO1mfvdP8aCP8EnahdgaMM1dWZIfA+WEyd1qTXgU41dBqu2kJn0NKeeODqMH7y7obQFwZDm3zTXDcGv8dfBE7eSkZZd/A5t4VKRllnaAZtJH+Ta0/mPjcAmuXv1Xe+LnvwEjp1ZdaxCaSPwyNwO3iQup1BPET6t9y+517pPuSzOvfbMBy0v8ICMLx7wNFWQ9rDCgXpg7adFO0hrf5062CpE3NTtpcaOS4E92rflyIK2cKePJrUSdsVZkHBeO+pZEbA69CH65205x6abAiZxdAJ1LWw7ZBqXWAwpH1/YTaODpTl93QuD2r5cRy0YrpZFwe72jxc6ChX8Hj4Bfi1aBx8GRRjNoNYRKpzN8Be+DxcAdY7EdbC3aDQN4DOM9w/iXgfkNZkrqCTarpZTbnv1qGGfh3cCNZAjywlKVgTPjuD42sMeTuNC533JOhMr/MO9tqVq9M8yOWtORdOSrco36EZPX1/MSva5zdDra0uDn6F1mfDFLBz34FNcBc4w8bASDgThsL3wE5NhUuhD+jIF2EGrILpcA5oCv9UIVfzx0ZuJaFqrvW/O/Zrf3b5KqkTygmpo/PmGcPJuAvezt8g70rfCv1Ax+ZXPpeFVd+b1Im7woKc2Z7Peip+KSt3sr0OjbPr2iT2z+fq11iZvWEFJHuGzAg4B2aA3/OSTSDjSTqdmP0Lj6dgHPSA+8C/AtH8OfHG+uw97R8LF8BQcEVWGNd+S/B03xK6VdzIMpSdDT7n+J2kFcb1ydk99/BKTuO6FXSpqHw0ZOjwNfAaJHuWzFegJ3wVdOIOsKwr7IGl4B7dDxTq17ALNO/rbMNZ2KetAI7wxHkTrIFkfke+Bzwx+u+/t8JAaAvfh9HgKve5MvgINFf1Q9Dx0x5XvD+nAA4x3PWHWZCctY+8IfoxGA+GrkZgWNT5K8GfEpMtJ2M0iJWb0/ZwZSvtI3VpFMfYhvvL1eD+2R00T64evjxMvQWDwRXqAUfz4PEEzAT/gdz6Yf+vCuDoFmBofhDehGTurR6ekvkH8HPhWugIfl0IOxoUwFmG4vZwOTwMmyGZJ2UdewP0ghOOhjEd7X0sOURXJwDO89cZf3r0B4lR4A8A/kBiuPZ/EBqew46AAvXi4NRvHO0PCf7idTxsi302KRNpKBAKhAKhQCgQCoQCoUAoEAqEAqFAKBAKhAKhQCgQCoQCoUAoEAqEAqFAKBAKhAKhQCgQCoQCoUAoEAqEAqFAKBAKhAKhQCgQCoQCoUAoEAqEAqFAKBAKhAKhQCgQCoQCoUAoEAqEAqFAKBAKfLYU+C8SqJPJylf4qwAAAABJRU5ErkJggg==" alt="Salient Group">
   </div>
   <div class="header-right">
     <span class="header-badge">Free Assessment</span>
@@ -181,7 +181,6 @@ footer a{color:var(--blue);text-decoration:none}
 </header>
 
 <div class="container">
-  <!-- FORM -->
   <div id="formSection">
     <h1>Business Security Assessment</h1>
     <p class="subtitle">Get a detailed, data-driven analysis of your facility's security needs</p>
@@ -208,7 +207,7 @@ footer a{color:var(--blue);text-decoration:none}
           <div class="field"><label>State</label><select name="state" required id="stateSelect"><option value="">Select state</option></select></div>
           <div class="field"><label>Zip Code</label><input type="text" name="zip" placeholder="32801" maxlength="5"></div>
           <div class="field"><label>Industry</label>
-            <select name="businessType" required>
+            <select name="businessType" required id="industrySelect">
               <option value="">Select your industry</option>
               <option value="warehouse">Warehouse &amp; Distribution</option>
               <option value="office">Office Building / Corporate Campus</option>
@@ -229,10 +228,10 @@ footer a{color:var(--blue);text-decoration:none}
         <div class="btn-row"><button type="button" class="btn btn-next" onclick="nextStep(1)">Continue →</button></div>
       </div>
 
-      <!-- Step 2: Facility Details -->
+      <!-- Step 2: Facility Details (dynamic) -->
       <div class="step" id="step2">
-        <div class="section-title">Facility Details</div>
-        <div class="form-grid">
+        <div class="section-title">Facility Overview</div>
+        <div class="form-grid" id="universalFields">
           <div class="field"><label>Total Square Footage</label>
             <select name="sqft" required>
               <option value="">Select range</option>
@@ -254,55 +253,6 @@ footer a{color:var(--blue);text-decoration:none}
               <option value="15">10+ entrances</option>
             </select>
           </div>
-          <div class="field"><label>Number of Floors</label>
-            <select name="floors">
-              <option value="1">1 floor</option>
-              <option value="2">2 – 3 floors</option>
-              <option value="5">4 – 10 floors</option>
-              <option value="12">10+ floors</option>
-            </select>
-          </div>
-          <div class="field"><label>Parking Area</label>
-            <select name="parking">
-              <option value="none">No parking area</option>
-              <option value="small">Small lot (under 50 spaces)</option>
-              <option value="medium">Medium lot (50 – 200 spaces)</option>
-              <option value="large">Large lot / garage (200+)</option>
-            </select>
-          </div>
-          <div class="field"><label>Loading Docks / Shipping Areas</label>
-            <select name="docks">
-              <option value="none">None</option>
-              <option value="few">1 – 5 docks</option>
-              <option value="moderate">6 – 20 docks</option>
-              <option value="many">21 – 50 docks</option>
-              <option value="major">51 – 100 docks</option>
-              <option value="mega">100+ docks</option>
-            </select>
-          </div>
-          <div class="field"><label>Perimeter Fencing</label>
-            <select name="fencing">
-              <option value="none">No fencing</option>
-              <option value="partial">Partial fencing</option>
-              <option value="full">Fully fenced</option>
-            </select>
-          </div>
-          <div class="field"><label>Exterior Lighting</label>
-            <select name="lighting">
-              <option value="poor">Minimal / Poor</option>
-              <option value="adequate">Adequate</option>
-              <option value="good">Comprehensive / Well-lit</option>
-            </select>
-          </div>
-        </div>
-        <div class="spacer"></div>
-        <div class="btn-row"><button type="button" class="btn btn-back" onclick="prevStep(2)">← Back</button><button type="button" class="btn btn-next" onclick="nextStep(2)">Continue →</button></div>
-      </div>
-
-      <!-- Step 3: Operations -->
-      <div class="step" id="step3">
-        <div class="section-title">Operations Profile</div>
-        <div class="form-grid">
           <div class="field"><label>Operating Schedule</label>
             <select name="hours" required>
               <option value="">Select schedule</option>
@@ -322,6 +272,17 @@ footer a{color:var(--blue);text-decoration:none}
               <option value="750">500+</option>
             </select>
           </div>
+        </div>
+        <!-- Dynamic vertical-specific section injected here -->
+        <div id="verticalQuestionsContainer"></div>
+        <div class="spacer"></div>
+        <div class="btn-row"><button type="button" class="btn btn-back" onclick="prevStep(2)">← Back</button><button type="button" class="btn btn-next" onclick="nextStep(2)">Continue →</button></div>
+      </div>
+
+      <!-- Step 3: Operations -->
+      <div class="step" id="step3">
+        <div class="section-title">Operations Profile</div>
+        <div class="form-grid">
           <div class="field"><label>Daily Visitors / Customers</label>
             <select name="visitors">
               <option value="5">Minimal (under 10/day)</option>
@@ -479,7 +440,7 @@ footer a{color:var(--blue);text-decoration:none}
       <div class="investment-box">
         <div class="range" id="investRange">–</div>
         <div class="note">Estimated Monthly Investment</div>
-        <div class="disclaimer" id="investDisclaimer">Actual pricing varies based on location, schedule complexity, and specific requirements. A Salient consultant will provide a detailed custom quote.</div>
+        <div class="disclaimer" id="investDisclaimer">Actual pricing varies based on location, schedule complexity, and specific requirements. A Salient Group consultant will provide a detailed custom quote.</div>
       </div>
       <div class="benchmark-box" id="benchmarkBox"></div>
     </div>
@@ -510,7 +471,196 @@ footer a{color:var(--blue);text-decoration:none}
 </footer>
 
 <script>
-// State data with property + violent crime rates per 100K (FBI UCR 2023 approximations)
+// ── Vertical-specific question definitions ──
+const verticalQuestions = {
+  warehouse: {
+    label: "Logistics & Distribution Security Profile",
+    fields: [
+      {name:'docks',label:'Loading Docks',type:'select',options:[['none','None'],['few','1 – 5 docks'],['moderate','6 – 20 docks'],['many','21 – 50 docks'],['major','51 – 100 docks'],['mega','100+ docks']]},
+      {name:'trailerYard',label:'Trailer Yard / Staging Area',type:'select',options:[['no','No'],['small','Yes — under 20 spots'],['medium','Yes — 20–50 spots'],['large','Yes — 50+ spots']]},
+      {name:'dailyTruckTraffic',label:'Average Daily Truck/Driver Traffic',type:'select',options:[['low','Under 20'],['moderate','20 – 50'],['high','50 – 100'],['very-high','100+']]},
+      {name:'highValueCargo',label:'High-Value Cargo on Site',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'shrinkageConcerns',label:'Shrinkage / Theft Concerns',type:'select',options:[['none','None'],['minor','Minor'],['significant','Significant'],['critical','Critical']]},
+      {name:'shiftChanges',label:'Shift Changes Per Day',type:'select',options:[['1','1 shift'],['2','2 shifts'],['3','3 shifts']]},
+      {name:'fencing',label:'Perimeter Fencing',type:'select',options:[['none','No fencing'],['partial','Partial fencing'],['full','Fully fenced']]},
+      {name:'lighting',label:'Exterior Lighting',type:'select',options:[['poor','Minimal / Poor'],['adequate','Adequate'],['good','Comprehensive / Well-lit']]}
+    ]
+  },
+  office: {
+    label: "Commercial Real Estate Security Profile",
+    fields: [
+      {name:'buildingCount',label:'Number of Buildings',type:'select',options:[['1','1 building'],['2','2 – 3 buildings'],['4','4 – 6 buildings'],['7','7+ buildings']]},
+      {name:'floors',label:'Number of Floors',type:'select',options:[['1','1 floor'],['2','2 – 3 floors'],['5','4 – 10 floors'],['12','10+ floors']]},
+      {name:'tenantCount',label:'Number of Tenants',type:'select',options:[['1','Single tenant'],['5','2 – 10 tenants'],['20','11 – 30 tenants'],['50','30+ tenants']]},
+      {name:'parkingType',label:'Parking Structure',type:'select',options:[['none','None'],['surface','Surface lot'],['garage','Parking garage'],['both','Both surface & garage']]},
+      {name:'lobbyType',label:'Lobby / Reception Area',type:'select',options:[['staffed','Staffed reception'],['unstaffed','Unstaffed lobby'],['none','No lobby area']]},
+      {name:'afterHoursAccess',label:'After-Hours Tenant Access',type:'select',options:[['keycard','Key card / fob'],['guard','Guard-controlled'],['open','Open access'],['locked','Locked — no after-hours access']]},
+      {name:'commonAreas',label:'Common Areas Requiring Coverage',type:'checkboxes',options:[['lobby','Lobby'],['parking','Parking'],['hallways','Hallways'],['mailroom','Mailroom']]}
+    ]
+  },
+  retail: {
+    label: "Retail Security Profile",
+    fields: [
+      {name:'storeType',label:'Store Type',type:'select',options:[['standalone','Standalone'],['strip','Strip mall'],['indoor-mall','Indoor mall'],['big-box','Big box retailer']]},
+      {name:'dailyCustomerTraffic',label:'Average Daily Customer Traffic',type:'select',options:[['low','Under 100'],['moderate','100 – 500'],['high','500 – 1,500'],['very-high','1,500+']]},
+      {name:'cashHandling',label:'Cash Handling on Site',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'fittingRooms',label:'Fitting Rooms / Dressing Rooms',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'backStock',label:'Back Stock / Warehouse Area',type:'select',options:[['no','No'],['small','Yes — small'],['large','Yes — large']]},
+      {name:'shrinkageRate',label:'Current Shrinkage Rate (if known)',type:'select',options:[['unknown','Unknown'],['low','Under 1%'],['moderate','1 – 3%'],['high','Over 3%']]},
+      {name:'lossPreventionProgram',label:'Loss Prevention Program in Place',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'afterHoursInventoryValue',label:'After-Hours Inventory Value on Site',type:'select',options:[['low','Low (under $100K)'],['medium','Medium ($100K – $500K)'],['high','High ($500K+)']]}
+    ]
+  },
+  healthcare: {
+    label: "Healthcare Security Profile",
+    fields: [
+      {name:'facilityType',label:'Facility Type',type:'select',options:[['hospital','Hospital'],['clinic','Clinic'],['urgent-care','Urgent Care'],['behavioral','Behavioral Health'],['nursing-home','Nursing Home / Long-Term Care'],['medical-office','Medical Office']]},
+      {name:'bedCount',label:'Number of Beds (if applicable)',type:'select',options:[['na','N/A'],['small','Under 50'],['medium','50 – 200'],['large','200 – 500'],['major','500+']]},
+      {name:'emergencyDept',label:'Emergency Department',type:'select',options:[['no','No'],['small','Yes — under 50 visits/day'],['medium','Yes — 50–150 visits/day'],['large','Yes — 150+ visits/day']]},
+      {name:'pharmacyOnSite',label:'Pharmacy on Site',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'behavioralUnit',label:'Behavioral Health / Psychiatric Unit',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'pediatricUnit',label:'Infant / Pediatric Unit',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'restrictedAreas',label:'Staff-Only Restricted Areas',type:'select',options:[['few','Few'],['moderate','Moderate'],['many','Many']]},
+      {name:'visitorPolicy',label:'Visitor Policy',type:'select',options:[['open','Open visitation'],['restricted','Restricted hours'],['escort','Escort required']]},
+      {name:'parkingType',label:'Parking Structure',type:'select',options:[['surface','Surface lot'],['garage','Parking garage'],['both','Both surface & garage']]}
+    ]
+  },
+  construction: {
+    label: "Construction Site Security Profile",
+    fields: [
+      {name:'projectDuration',label:'Estimated Project Duration',type:'select',options:[['short','Under 3 months'],['medium','3 – 12 months'],['long','12 – 24 months'],['ongoing','24+ months / ongoing']]},
+      {name:'equipmentValue',label:'Equipment Value on Site',type:'select',options:[['low','Under $100K'],['medium','$100K – $500K'],['high','$500K – $2M'],['very-high','$2M+']]},
+      {name:'materialsValue',label:'Materials Value on Site',type:'select',options:[['low','Under $50K'],['medium','$50K – $250K'],['high','$250K – $1M'],['very-high','$1M+']]},
+      {name:'contractorCount',label:'Contractors / Subcontractors on Site',type:'select',options:[['few','Under 10'],['moderate','10 – 30'],['many','30 – 75'],['large','75+']]},
+      {name:'sitePerimeter',label:'Site Perimeter',type:'select',options:[['open','Open / unfenced'],['partial','Partially fenced'],['full','Fully fenced']]},
+      {name:'constructionPhase',label:'Phase of Construction',type:'select',options:[['pre','Pre-construction'],['active','Active build'],['finishing','Finishing'],['ongoing','Ongoing / multi-phase']]},
+      {name:'overnightStorage',label:'Overnight Equipment Storage',type:'select',options:[['secured','On-site — secured'],['unsecured','On-site — unsecured'],['offsite','Off-site']]},
+      {name:'fireWatch',label:'Fire Watch Needed',type:'select',options:[['no','No'],['yes','Yes']]}
+    ]
+  },
+  residential: {
+    label: "HOA / Residential Security Profile",
+    fields: [
+      {name:'communityType',label:'Community Type',type:'select',options:[['gated','Gated community'],['non-gated','Non-gated community'],['high-rise','High-rise'],['townhome','Townhome community'],['mixed','Mixed-use']]},
+      {name:'unitCount',label:'Number of Units / Homes',type:'select',options:[['small','Under 50'],['medium','50 – 150'],['large','150 – 400'],['xlarge','400+']]},
+      {name:'gatedEntry',label:'Gated Entry',type:'select',options:[['no','No gate'],['automated','Yes — automated'],['staffed','Yes — staffed']]},
+      {name:'amenities',label:'Community Amenities',type:'checkboxes',options:[['pool','Pool'],['gym','Gym'],['clubhouse','Clubhouse'],['playground','Playground']]},
+      {name:'packageDelivery',label:'Package Delivery Area',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'guestAccess',label:'Guest / Visitor Access Method',type:'select',options:[['call-in','Call-in / intercom'],['gate-code','Gate code'],['guard','Guard verification'],['app','Mobile app']]},
+      {name:'patrolCoverage',label:'Current Patrol Coverage',type:'select',options:[['none','None'],['roving','Roving patrol'],['fixed','Fixed post'],['combination','Combination']]},
+      {name:'commonParking',label:'Common Parking Areas',type:'select',options:[['no','No'],['yes','Yes']]}
+    ]
+  },
+  events: {
+    label: "Events & Entertainment Security Profile",
+    fields: [
+      {name:'venueType',label:'Venue Type',type:'select',options:[['arena','Arena'],['theater','Theater'],['outdoor','Outdoor venue'],['convention','Convention center'],['stadium','Stadium'],['other','Other']]},
+      {name:'venueCapacity',label:'Maximum Venue Capacity',type:'select',options:[['small','Under 500'],['medium','500 – 2,000'],['large','2,000 – 10,000'],['xlarge','10,000 – 50,000'],['mega','50,000+']]},
+      {name:'eventsPerMonth',label:'Average Events Per Month',type:'select',options:[['few','1 – 4'],['moderate','5 – 12'],['many','13 – 20'],['daily','20+']]},
+      {name:'vipAreas',label:'VIP / Backstage Areas',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'alcoholServed',label:'Alcohol Served',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'venueEnvironment',label:'Indoor, Outdoor, or Both',type:'select',options:[['indoor','Indoor'],['outdoor','Outdoor'],['both','Both']]},
+      {name:'eventDuration',label:'Typical Event Duration',type:'select',options:[['short','Under 2 hours'],['medium','2 – 4 hours'],['long','4 – 8 hours'],['extended','8+ hours']]},
+      {name:'crowdDemographic',label:'Crowd Demographic',type:'select',options:[['family','Family'],['adult','Adult'],['mixed','Mixed'],['corporate','Corporate']]}
+    ]
+  },
+  education: {
+    label: "Education Security Profile",
+    fields: [
+      {name:'institutionType',label:'Institution Type',type:'select',options:[['k12','K-12 School'],['university','University'],['community-college','Community College'],['trade-school','Trade / Vocational School']]},
+      {name:'studentPopulation',label:'Student Population',type:'select',options:[['small','Under 500'],['medium','500 – 2,000'],['large','2,000 – 10,000'],['xlarge','10,000+']]},
+      {name:'campusType',label:'Campus Type',type:'select',options:[['single','Single building'],['multi','Multi-building campus'],['spread','Spread / distributed campus']]},
+      {name:'residenceHalls',label:'Residence Halls',type:'select',options:[['no','No'],['few','Yes — 1–5 halls'],['many','Yes — 6+ halls']]},
+      {name:'athleticFacilities',label:'Athletic Facilities',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'eventFrequency',label:'Events Requiring Security',type:'select',options:[['none','None'],['seasonal','Seasonal'],['monthly','Monthly'],['weekly','Weekly']]},
+      {name:'campusAccess',label:'Campus Access',type:'select',options:[['open','Open campus'],['controlled','Controlled access']]},
+      {name:'sro',label:'School Resource Officer Currently',type:'select',options:[['no','No'],['yes','Yes']]}
+    ]
+  },
+  hospitality: {
+    label: "Hospitality Security Profile",
+    fields: [
+      {name:'propertyType',label:'Property Type',type:'select',options:[['hotel','Hotel'],['resort','Resort'],['casino','Casino'],['bnb','B&B / Boutique'],['conference','Conference Center']]},
+      {name:'roomCount',label:'Number of Rooms',type:'select',options:[['small','Under 50'],['medium','50 – 150'],['large','150 – 400'],['xlarge','400+']]},
+      {name:'restaurantBar',label:'Restaurant / Bar on Site',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'poolSpa',label:'Pool / Spa Area',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'conferenceSpace',label:'Conference / Event Space',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'valetParking',label:'Valet Parking',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'lateNightOps',label:'Late Night Operations (Past Midnight)',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'guestIncidentFreq',label:'Guest Incident Frequency',type:'select',options:[['rare','Rare'],['occasional','Occasional'],['frequent','Frequent']]}
+    ]
+  },
+  manufacturing: {
+    label: "Manufacturing Security Profile",
+    fields: [
+      {name:'productionLines',label:'Number of Production Lines',type:'select',options:[['few','1 – 3'],['moderate','4 – 8'],['many','9 – 15'],['large','15+']]},
+      {name:'ipSensitivity',label:'IP / Proprietary Processes',type:'select',options:[['none','None'],['moderate','Moderate'],['high','Highly sensitive']]},
+      {name:'hazardousMaterials',label:'Hazardous Materials on Site',type:'select',options:[['no','No'],['yes-common','Yes — common chemicals'],['yes-dangerous','Yes — dangerous / regulated']]},
+      {name:'shiftOps',label:'Shift Operations',type:'select',options:[['single','Single shift'],['two','Two shifts'],['24-7','24/7 operations']]},
+      {name:'rawMaterialValue',label:'Raw Material Value on Site',type:'select',options:[['low','Low'],['medium','Medium'],['high','High'],['very-high','Very high']]},
+      {name:'shippingDocks',label:'Shipping / Receiving Docks',type:'select',options:[['no','No'],['few','1 – 5'],['many','6+']]},
+      {name:'cleanRoom',label:'Clean Room / Restricted Production Areas',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'vendorFrequency',label:'Visitor / Vendor Frequency',type:'select',options:[['rare','Rare'],['weekly','Weekly'],['daily','Daily']]}
+    ]
+  },
+  government: {
+    label: "Government Facility Security Profile",
+    fields: [
+      {name:'floors',label:'Number of Floors',type:'select',options:[['1','1 floor'],['2','2 – 3 floors'],['5','4 – 10 floors'],['12','10+ floors']]},
+      {name:'publicAccess',label:'Public Access Level',type:'select',options:[['open','Open to public'],['screened','Screened entry'],['restricted','Restricted access']]},
+      {name:'fencing',label:'Perimeter Fencing',type:'select',options:[['none','No fencing'],['partial','Partial fencing'],['full','Fully fenced']]},
+      {name:'lighting',label:'Exterior Lighting',type:'select',options:[['poor','Minimal / Poor'],['adequate','Adequate'],['good','Comprehensive / Well-lit']]},
+      {name:'parkingType',label:'Parking Structure',type:'select',options:[['none','None'],['surface','Surface lot'],['garage','Parking garage'],['both','Both']]},
+      {name:'sensitiveAreas',label:'Sensitive / Classified Areas',type:'select',options:[['none','None'],['some','Some areas'],['many','Many areas']]}
+    ]
+  },
+  financial: {
+    label: "Financial Services Security Profile",
+    fields: [
+      {name:'floors',label:'Number of Floors',type:'select',options:[['1','1 floor'],['2','2 – 3 floors'],['5','4 – 10 floors'],['12','10+ floors']]},
+      {name:'branchType',label:'Facility Type',type:'select',options:[['branch','Retail branch'],['corporate','Corporate office'],['datacenter','Data center'],['mixed','Mixed use']]},
+      {name:'vaultOnSite',label:'Vault / Cash Storage',type:'select',options:[['no','No'],['yes','Yes']]},
+      {name:'fencing',label:'Perimeter Fencing',type:'select',options:[['none','No fencing'],['partial','Partial fencing'],['full','Fully fenced']]},
+      {name:'lighting',label:'Exterior Lighting',type:'select',options:[['poor','Minimal / Poor'],['adequate','Adequate'],['good','Comprehensive / Well-lit']]},
+      {name:'parkingType',label:'Parking Structure',type:'select',options:[['none','None'],['surface','Surface lot'],['garage','Parking garage'],['both','Both']]}
+    ]
+  }
+};
+
+function renderVerticalQuestions(type) {
+  const container = document.getElementById('verticalQuestionsContainer');
+  const config = verticalQuestions[type];
+  if (!config) { container.innerHTML = ''; return; }
+
+  let html = '<div class="vertical-section" id="verticalSection">';
+  html += '<div class="section-subtitle">' + config.label + '</div>';
+  html += '<div class="form-grid">';
+
+  config.fields.forEach(f => {
+    if (f.type === 'checkboxes') {
+      html += '<div class="field full"><label>' + f.label + '</label><div class="checkbox-group">';
+      f.options.forEach(o => {
+        html += '<label><input type="checkbox" name="' + f.name + '_' + o[0] + '" value="yes"> ' + o[1] + '</label>';
+      });
+      html += '</div></div>';
+    } else {
+      html += '<div class="field"><label>' + f.label + '</label><select name="' + f.name + '">';
+      f.options.forEach(o => { html += '<option value="' + o[0] + '">' + o[1] + '</option>'; });
+      html += '</select></div>';
+    }
+  });
+
+  html += '</div></div>';
+  container.innerHTML = html;
+
+  // Trigger transition
+  requestAnimationFrame(() => {
+    const sec = document.getElementById('verticalSection');
+    if (sec) sec.classList.add('visible');
+  });
+}
+
+// ── State data ──
 const stateData={
 AL:{name:"Alabama",property:2800,violent:500},AK:{name:"Alaska",property:2900,violent:840},
 AZ:{name:"Arizona",property:2600,violent:480},AR:{name:"Arkansas",property:2700,violent:600},
@@ -540,7 +690,7 @@ WI:{name:"Wisconsin",property:1600,violent:320},WY:{name:"Wyoming",property:1700
 };
 const natAvgProperty=2100, natAvgViolent=380;
 
-// Industry risk profiles
+// ── Industry risk profiles ──
 const industryProfiles={
 warehouse:{label:"Warehouse & Distribution",baseRisk:72,theft:82,perimeter:75,afterHours:78,access:68,workplace:45,compliance:40,emergency:55,technology:65,
   benchmarkLow:8000,benchmarkHigh:25000,concerns:["Cargo and inventory shrinkage","Unauthorized vehicle and personnel access","After-hours intrusion through loading areas","Driver and visitor credential verification"]},
@@ -586,6 +736,7 @@ function showStep(n){
   currentStep=n;
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
 function validateStep(n){
   const step=document.getElementById('step'+n);
   const required=step.querySelectorAll('[required]');
@@ -594,7 +745,6 @@ function validateStep(n){
     if(!el.value){el.style.borderColor='var(--red)';valid=false}
     else{el.style.borderColor=''}
   });
-  // Extra validation on step 5
   if(n===5&&valid){
     const email=step.querySelector('[name="email"]');
     const phone=step.querySelector('[name="phone"]');
@@ -613,10 +763,30 @@ function validateStep(n){
   }
   return valid;
 }
-function nextStep(n){if(validateStep(n))showStep(n+1)}
+
+function nextStep(n){
+  if(!validateStep(n))return;
+  // When leaving step 1, render vertical questions for step 2
+  if(n===1){
+    const industry=document.querySelector('[name="businessType"]').value;
+    renderVerticalQuestions(industry);
+  }
+  showStep(n+1);
+}
 function prevStep(n){showStep(n-1)}
 
-// Scoring engine
+// ── Helper to get all form data including checkboxes ──
+function getAllFormData(form){
+  const fd=new FormData(form);
+  const data=Object.fromEntries(fd.entries());
+  // Add checkbox groups
+  form.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+    data[cb.name]=cb.checked?'yes':'no';
+  });
+  return data;
+}
+
+// ── Scoring engine ──
 function calculateAssessment(d){
   const profile=industryProfiles[d.businessType]||industryProfiles.office;
   const st=stateData[d.state]||{property:natAvgProperty,violent:natAvgViolent,name:d.state};
@@ -626,7 +796,6 @@ function calculateAssessment(d){
   const visitors=parseFloat(d.visitors)||30;
   const floors=parseFloat(d.floors)||1;
 
-  // Modifiers based on inputs
   const sizeM=Math.min(sqft/200000,1);
   const epM=Math.min(ep/15,1);
   const empM=Math.min(employees/500,1);
@@ -635,118 +804,278 @@ function calculateAssessment(d){
 
   const noSecurity=d.currentSecurity==='none'?1.2:1;
   const switchSecurity=(d.currentSecurity==='outsourced-switch'||d.currentSecurity==='outsourced-issues')?1.1:1;
-  const dockM={none:1,few:1,moderate:1.08,many:1.15,major:1.25,mega:1.35}[d.docks]||1;
-  const trafficM={minimal:1,low:1.03,moderate:1.08,high:1.15,'very-high':1.25,extreme:1.35}[d.vehicleTraffic]||1;
   const incidentM={none:1,rare:1.05,occasional:1.12,regular:1.22,frequent:1.35,constant:1.5}[d.incidents]||1;
   const highValM={no:1,moderate:1.1,yes:1.25}[d.highValue]||1;
   const hrsMod={'24/7':1.15,extended:1.05,business:0.9,nights:1.1}[d.hours]||1;
-  const lightM={poor:1.15,adequate:1,good:0.9}[d.lighting]||1;
-  const fenceM={none:1.15,partial:1.05,full:0.9}[d.fencing]||1;
+  const trafficM={minimal:1,low:1.03,moderate:1.08,high:1.15,'very-high':1.25,extreme:1.35}[d.vehicleTraffic]||1;
+
+  // Vertical-specific modifiers
+  const dockVal=d.docks||d.shippingDocks||'none';
+  const dockM={none:1,no:1,few:1,moderate:1.08,many:1.15,major:1.25,mega:1.35}[dockVal]||1;
+  const fenceVal=d.fencing||d.sitePerimeter||'partial';
+  const lightVal=d.lighting||'adequate';
+  const lightM={poor:1.15,adequate:1,good:0.9}[lightVal]||1;
+  const fenceM={none:1.15,open:1.15,partial:1.05,full:0.9}[fenceVal]||1;
+
+  // Vertical-specific risk boosts
+  let verticalBoost=0;
+  const bt=d.businessType;
+  if(bt==='warehouse'){
+    if(d.highValueCargo==='yes')verticalBoost+=4;
+    if(d.shrinkageConcerns==='critical')verticalBoost+=6;
+    else if(d.shrinkageConcerns==='significant')verticalBoost+=3;
+    if(d.trailerYard==='large')verticalBoost+=3;
+    else if(d.trailerYard==='medium')verticalBoost+=1;
+  }else if(bt==='healthcare'){
+    if(d.emergencyDept&&d.emergencyDept!=='no')verticalBoost+=4;
+    if(d.behavioralUnit==='yes')verticalBoost+=5;
+    if(d.pediatricUnit==='yes')verticalBoost+=3;
+    if(d.pharmacyOnSite==='yes')verticalBoost+=2;
+  }else if(bt==='construction'){
+    if(d.equipmentValue==='very-high')verticalBoost+=5;
+    else if(d.equipmentValue==='high')verticalBoost+=3;
+    if(d.overnightStorage==='unsecured')verticalBoost+=4;
+    if(d.fireWatch==='yes')verticalBoost+=2;
+  }else if(bt==='retail'){
+    if(d.shrinkageRate==='high')verticalBoost+=5;
+    else if(d.shrinkageRate==='moderate')verticalBoost+=2;
+    if(d.cashHandling==='yes')verticalBoost+=2;
+    if(d.afterHoursInventoryValue==='high')verticalBoost+=3;
+  }else if(bt==='office'){
+    if(d.tenantCount&&parseInt(d.tenantCount)>=20)verticalBoost+=2;
+    if(d.lobbyType==='unstaffed')verticalBoost+=2;
+    if(d.afterHoursAccess==='open')verticalBoost+=3;
+  }else if(bt==='events'){
+    if(d.venueCapacity&&['xlarge','mega'].includes(d.venueCapacity))verticalBoost+=5;
+    else if(d.venueCapacity==='large')verticalBoost+=3;
+    if(d.alcoholServed==='yes')verticalBoost+=3;
+    if(d.vipAreas==='yes')verticalBoost+=1;
+  }else if(bt==='education'){
+    if(d.campusType==='spread')verticalBoost+=3;
+    if(d.residenceHalls&&d.residenceHalls!=='no')verticalBoost+=3;
+    if(d.campusAccess==='open')verticalBoost+=2;
+  }else if(bt==='manufacturing'){
+    if(d.ipSensitivity==='high')verticalBoost+=4;
+    if(d.hazardousMaterials&&d.hazardousMaterials!=='no')verticalBoost+=3;
+    if(d.rawMaterialValue==='very-high')verticalBoost+=3;
+  }else if(bt==='residential'){
+    if(d.gatedEntry==='no')verticalBoost+=3;
+    if(d.patrolCoverage==='none')verticalBoost+=3;
+    if(d.unitCount==='xlarge')verticalBoost+=2;
+  }else if(bt==='hospitality'){
+    if(d.lateNightOps==='yes')verticalBoost+=3;
+    if(d.guestIncidentFreq==='frequent')verticalBoost+=4;
+    else if(d.guestIncidentFreq==='occasional')verticalBoost+=2;
+    if(d.roomCount&&['large','xlarge'].includes(d.roomCount))verticalBoost+=2;
+  }
 
   // 8 risk categories
   const categories=[
     {name:"Perimeter Security",base:profile.perimeter,
-      calc:()=>clamp(profile.perimeter*(.35+sizeM*.2+epM*.2+fenceM*.1+dockM*.15)*lightM*crimeM*.85),
+      calc:()=>clamp(profile.perimeter*(.35+sizeM*.2+epM*.2+fenceM*.1+dockM*.15)*lightM*crimeM*.85+verticalBoost*.3),
       getFindings:(v,d)=>{
         const f=[];
-        if(d.fencing==='none')f.push("No perimeter fencing leaves the facility boundary unsecured");
-        else if(d.fencing==='partial')f.push("Partial fencing creates gaps that can be exploited");
-        if(ep>=6)f.push(ep+"+ entry points significantly increase perimeter complexity");
-        if(d.lighting==='poor')f.push("Minimal exterior lighting reduces natural deterrence");
-        if(d.docks==='mega')f.push("100+ dock doors create a massive perimeter challenge requiring dedicated dock security");
-        else if(d.docks==='major')f.push("51–100 dock doors require structured access control and monitoring");
-        else if(d.docks==='many')f.push("21–50 loading docks significantly expand the security perimeter");
-        if(sqft>=75000)f.push("Large facility footprint ("+(sqft>=175000?"250K+":sqft>=75000?"75K+":"50K+")+" sq ft) requires extended perimeter coverage");
+        if(fenceVal==='none'||fenceVal==='open')f.push("No perimeter fencing leaves the facility boundary unsecured");
+        else if(fenceVal==='partial')f.push("Partial fencing creates gaps that can be exploited");
+        if(ep>=6)f.push(Math.round(ep)+"+ entry points significantly increase perimeter complexity");
+        if(lightVal==='poor')f.push("Minimal exterior lighting reduces natural deterrence");
+        // Vertical findings
+        if(bt==='warehouse'){
+          if(dockVal==='mega')f.push("100+ dock doors create a massive perimeter challenge requiring dedicated dock security");
+          else if(dockVal==='major')f.push("51–100 dock doors require structured access control and monitoring");
+          else if(dockVal==='many')f.push("21–50 loading docks significantly expand the security perimeter");
+          if(d.trailerYard&&d.trailerYard!=='no')f.push("Trailer yard / staging area creates additional perimeter exposure");
+        }
+        if(bt==='construction'){
+          if(d.sitePerimeter==='open')f.push("Open construction site with no fencing is highly vulnerable to unauthorized access");
+          if(d.constructionPhase==='active')f.push("Active build phase has frequently changing site boundaries");
+        }
+        if(bt==='education'&&d.campusType==='spread')f.push("Distributed campus layout creates multiple perimeter zones to secure");
+        if(bt==='events'&&d.venueEnvironment==='outdoor')f.push("Outdoor venue requires temporary perimeter solutions for each event");
+        if(sqft>=75000)f.push("Large facility footprint ("+(sqft>=175000?"250K+":"75K+")+" sq ft) requires extended perimeter coverage");
         if(f.length===0)f.push("Facility perimeter is reasonably well-defined");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>d.fencing==='none'?"Consider installing perimeter fencing with controlled entry gates":ep>=8?"Implement access-controlled entry points with visitor logging at all "+Math.round(ep)+"+ entrances":"Conduct a perimeter vulnerability walk-through to identify blind spots"
+      getRec:(v,d)=>{
+        if(fenceVal==='none'||fenceVal==='open')return "Consider installing perimeter fencing with controlled entry gates";
+        if(bt==='construction')return "Establish temporary fencing with controlled gate access and sign-in/sign-out logs";
+        if(ep>=8)return "Implement access-controlled entry points with visitor logging at all "+Math.round(ep)+"+ entrances";
+        return "Conduct a perimeter vulnerability walk-through to identify blind spots";
+      }
     },
     {name:"Access Control",base:profile.access,
-      calc:()=>clamp(profile.access*(.35+visM*.25+empM*.2+epM*.2)*noSecurity),
+      calc:()=>clamp(profile.access*(.35+visM*.25+empM*.2+epM*.2)*noSecurity+verticalBoost*.4),
       getFindings:(v,d)=>{
         const f=[];
         if(d.accessControl==='none')f.push("No electronic access control — relying on physical keys limits accountability");
         if(visitors>=200)f.push("High visitor volume ("+Math.round(visitors)+"+/day) requires structured screening procedures");
         if(employees>=200)f.push("Large workforce requires credential management and access tiering");
+        // Vertical findings
+        if(bt==='healthcare'){
+          if(d.behavioralUnit==='yes')f.push("Behavioral health unit requires specialized access controls and elopement prevention");
+          if(d.pediatricUnit==='yes')f.push("Infant/pediatric unit requires infant protection system (code pink protocols)");
+          if(d.restrictedAreas==='many')f.push("Numerous staff-only restricted areas require layered access control");
+        }
+        if(bt==='office'){
+          if(d.afterHoursAccess==='open')f.push("Open after-hours access creates uncontrolled entry during vulnerable periods");
+          if(d.tenantCount&&parseInt(d.tenantCount)>=20)f.push("Multi-tenant environment ("+d.tenantCount+"+ tenants) requires credential segmentation");
+        }
+        if(bt==='events'){
+          if(d.vipAreas==='yes')f.push("VIP/backstage areas require separate credentialing and access tiers");
+          if(d.venueCapacity&&['xlarge','mega'].includes(d.venueCapacity))f.push("Large venue capacity demands efficient entry screening to prevent bottlenecks");
+        }
+        if(bt==='residential'){
+          if(d.gatedEntry==='no')f.push("No gated entry allows unrestricted community access");
+          if(d.guestAccess==='gate-code')f.push("Gate codes can be shared — consider guard verification or app-based access");
+        }
+        if(bt==='education'){
+          if(d.campusAccess==='open')f.push("Open campus allows unrestricted access to buildings and grounds");
+          if(d.residenceHalls&&d.residenceHalls!=='no')f.push("Residence halls require 24/7 access control and visitor management");
+        }
         if(f.length===0)f.push("Current access control setup provides baseline coverage");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>d.accessControl==='none'?"Implement electronic access control with credential logging":"Establish visitor management protocols with badge-in/badge-out tracking"
+      getRec:(v,d)=>{
+        if(bt==='healthcare'&&d.behavioralUnit==='yes')return "Implement specialized behavioral health unit security with anti-elopement systems";
+        if(bt==='residential'&&d.gatedEntry==='no')return "Install gated entry with visitor verification to control community access";
+        if(d.accessControl==='none')return "Implement electronic access control with credential logging";
+        return "Establish visitor management protocols with badge-in/badge-out tracking";
+      }
     },
     {name:"Loss Prevention",base:profile.theft,
-      calc:()=>clamp(profile.theft*(.35+highValM*.2+sizeM*.1+crimeM*.15+dockM*.1+trafficM*.1)*incidentM*.9),
+      calc:()=>clamp(profile.theft*(.35+highValM*.2+sizeM*.1+crimeM*.15+dockM*.1+trafficM*.1)*incidentM*.9+verticalBoost*.5),
       getFindings:(v,d)=>{
         const f=[];
         if(d.highValue==='yes')f.push("Significant high-value assets on premises increase targeting likelihood");
         if(st.property>natAvgProperty*1.1)f.push(st.name+" property incident rate is "+Math.round((st.property/natAvgProperty-1)*100)+"% above the national average");
-        if(d.incidents==='constant'||d.incidents==='frequent')f.push("High incident frequency (multiple per week) indicates significant active exposure requiring immediate intervention");
+        if(d.incidents==='constant'||d.incidents==='frequent')f.push("High incident frequency indicates significant active exposure requiring immediate intervention");
         else if(d.incidents==='regular'||d.incidents==='occasional')f.push("Regular on-site incidents indicate ongoing exposure that professional security can mitigate");
         else if(d.incidents==='rare')f.push("Some past incidents suggest potential vulnerabilities worth addressing proactively");
+        // Vertical findings
+        if(bt==='warehouse'){
+          if(d.highValueCargo==='yes')f.push("High-value cargo on site significantly increases theft targeting risk");
+          if(d.shrinkageConcerns==='critical')f.push("Critical shrinkage levels indicate urgent need for loss prevention intervention");
+          else if(d.shrinkageConcerns==='significant')f.push("Significant shrinkage concerns require enhanced monitoring and accountability controls");
+        }
+        if(bt==='construction'){
+          if(d.equipmentValue==='very-high'||d.equipmentValue==='high')f.push("High-value equipment on site ($"+(d.equipmentValue==='very-high'?'2M+':'500K–2M')+") makes the site a prime theft target");
+          if(d.overnightStorage==='unsecured')f.push("Unsecured overnight equipment storage is a critical vulnerability");
+        }
+        if(bt==='retail'){
+          if(d.shrinkageRate==='high')f.push("Shrinkage rate over 3% indicates serious loss prevention gaps");
+          if(d.lossPreventionProgram==='no')f.push("No loss prevention program in place — missing a critical retail security layer");
+          if(d.afterHoursInventoryValue==='high')f.push("High after-hours inventory value ($500K+) requires robust overnight protection");
+        }
+        if(bt==='manufacturing'&&d.rawMaterialValue==='very-high')f.push("Very high raw material value creates significant theft exposure");
         if(d.cameras==='none')f.push("No camera coverage removes a key deterrent and evidence source");
         if(f.length===0)f.push("Loss prevention risk is within normal range for your industry");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>d.cameras==='none'?"Install camera surveillance at all entry points, loading areas, and high-value storage":"Implement inventory controls and regular audit procedures"
+      getRec:(v,d)=>{
+        if(bt==='construction'&&d.overnightStorage==='unsecured')return "Priority: secure overnight equipment storage and install site surveillance with remote monitoring";
+        if(bt==='retail'&&d.lossPreventionProgram==='no')return "Implement a comprehensive loss prevention program including floor officers and surveillance";
+        if(d.cameras==='none')return "Install camera surveillance at all entry points, loading areas, and high-value storage";
+        return "Implement inventory controls and regular audit procedures";
+      }
     },
     {name:"After-Hours Exposure",base:profile.afterHours,
-      calc:()=>clamp(profile.afterHours*(.35+hrsMod*.25+lightM*.2+fenceM*.2)*noSecurity*crimeM*.8),
+      calc:()=>clamp(profile.afterHours*(.35+hrsMod*.25+lightM*.2+fenceM*.2)*noSecurity*crimeM*.8+verticalBoost*.3),
       getFindings:(v,d)=>{
         const f=[];
         if(d.hours==='24/7')f.push("24/7 operations mean the facility is never truly unoccupied — continuous coverage needed");
         else if(d.hours==='nights')f.push("Night operations carry elevated risk due to reduced visibility and response times");
-        if(d.lighting==='poor')f.push("Poor exterior lighting during dark hours creates concealment opportunities");
+        if(lightVal==='poor')f.push("Poor exterior lighting during dark hours creates concealment opportunities");
         if(d.alarm==='no')f.push("No alarm system means intrusions may go undetected for hours");
         if(d.currentSecurity==='none'&&d.hours!=='business')f.push("No security presence during off-hours leaves the facility unprotected");
+        // Vertical findings
+        if(bt==='construction'&&d.overnightStorage!=='offsite')f.push("Equipment and materials remain on site overnight — prime window for theft");
+        if(bt==='hospitality'&&d.lateNightOps==='yes')f.push("Late-night operations past midnight require dedicated overnight security presence");
+        if(bt==='retail'&&d.afterHoursInventoryValue==='high')f.push("High-value inventory remains on site after hours, requiring overnight monitoring");
+        if(bt==='office'&&d.afterHoursAccess==='open')f.push("Open after-hours access creates unmonitored facility use during vulnerable periods");
         if(f.length===0)f.push("After-hours exposure is manageable with current measures");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>d.alarm==='no'?"Install a professionally monitored alarm system with immediate dispatch capability":"Implement after-hours patrol routes covering all building perimeters and parking areas"
+      getRec:(v,d)=>{
+        if(d.alarm==='no')return "Install a professionally monitored alarm system with immediate dispatch capability";
+        if(bt==='construction')return "Implement overnight site security with regular perimeter patrols and remote camera monitoring";
+        return "Implement after-hours patrol routes covering all building perimeters and parking areas";
+      }
     },
     {name:"Workplace Safety",base:profile.workplace,
-      calc:()=>clamp(profile.workplace*(.4+empM*.25+visM*.2)*switchSecurity),
+      calc:()=>clamp(profile.workplace*(.4+empM*.25+visM*.2)*switchSecurity+verticalBoost*.35),
       getFindings:(v,d)=>{
         const f=[];
-        if(['healthcare','retail','education'].includes(d.businessType))f.push("Your industry has above-average workplace safety incident rates");
+        if(['healthcare','retail','education'].includes(bt))f.push("Your industry has above-average workplace safety incident rates");
         if(employees>=300)f.push("Large on-site workforce increases interpersonal incident probability");
         if(visitors>=200)f.push("High public interaction raises exposure to external confrontations");
+        // Vertical findings
+        if(bt==='healthcare'){
+          if(d.emergencyDept&&d.emergencyDept!=='no')f.push("Emergency department is a high-risk area for patient aggression and workplace violence");
+          if(d.visitorPolicy==='open')f.push("Open visitation policy increases potential for visitor-related incidents");
+        }
+        if(bt==='events'&&d.alcoholServed==='yes')f.push("Alcohol service significantly increases altercation and safety incident likelihood");
+        if(bt==='hospitality'&&d.guestIncidentFreq==='frequent')f.push("Frequent guest incidents indicate ongoing workplace safety exposure for staff");
+        if(bt==='education'&&d.eventFrequency==='weekly')f.push("Weekly events requiring security increase crowd management demands");
         if(f.length===0)f.push("Workplace safety risk is within normal parameters");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>employees>=200?"Implement a workplace safety program with trained security officers and de-escalation protocols":"Establish clear incident reporting procedures and emergency contact protocols"
+      getRec:(v,d)=>{
+        if(bt==='healthcare')return "Train security officers in healthcare-specific de-escalation and patient interaction protocols";
+        if(bt==='events')return "Deploy trained crowd management officers with de-escalation and alcohol-related incident response training";
+        if(employees>=200)return "Implement a workplace safety program with trained security officers and de-escalation protocols";
+        return "Establish clear incident reporting procedures and emergency contact protocols";
+      }
     },
     {name:"Emergency Preparedness",base:profile.emergency,
-      calc:()=>clamp(profile.emergency*(.4+empM*.2+sizeM*.2+visM*.2)),
+      calc:()=>clamp(profile.emergency*(.4+empM*.2+sizeM*.2+visM*.2)+verticalBoost*.2),
       getFindings:(v,d)=>{
         const f=[];
         if(employees>=200||visitors>=200)f.push("Large occupancy requires comprehensive evacuation and shelter-in-place plans");
         if(floors>=4)f.push("Multi-story building requires floor-specific emergency procedures");
         if(sqft>=75000)f.push("Facility size requires multiple evacuation routes and assembly points");
+        // Vertical findings
+        if(bt==='healthcare'&&d.emergencyDept&&d.emergencyDept!=='no')f.push("Emergency department requires dedicated emergency management protocols beyond standard hospital procedures");
+        if(bt==='events'&&d.venueCapacity&&['xlarge','mega'].includes(d.venueCapacity))f.push("Large venue capacity (10,000+) demands comprehensive evacuation planning and crowd control procedures");
+        if(bt==='education'&&d.institutionType==='k12')f.push("K-12 institutions require active shooter drills, lockdown protocols, and reunification plans");
+        if(bt==='construction'&&d.fireWatch==='yes')f.push("Fire watch requirement indicates elevated fire risk requiring dedicated response protocols");
+        if(bt==='manufacturing'&&d.hazardousMaterials&&d.hazardousMaterials!=='no')f.push("Hazardous materials on site require specialized emergency response and evacuation procedures");
         if(f.length===0)f.push("Emergency preparedness needs are standard for your facility type");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>"Develop and regularly drill emergency action plans covering evacuation, medical response, and severe weather"
+      getRec:(v,d)=>{
+        if(bt==='education')return "Develop and regularly drill emergency action plans including lockdown, evacuation, and reunification protocols";
+        if(bt==='construction'&&d.fireWatch==='yes')return "Establish fire watch procedures with trained personnel and direct communication to local fire department";
+        return "Develop and regularly drill emergency action plans covering evacuation, medical response, and severe weather";
+      }
     },
     {name:"Regulatory Compliance",base:profile.compliance,
-      calc:()=>clamp(profile.compliance*(.5+({yes:.25,some:.15,no:0}[d.sensitiveData]||0))*1.05),
+      calc:()=>clamp(profile.compliance*(.5+({yes:.25,some:.15,no:0}[d.sensitiveData]||0))*1.05+verticalBoost*.15),
       getFindings:(v,d)=>{
         const f=[];
-        if(d.businessType==='healthcare')f.push("HIPAA requires physical safeguards for areas containing protected health information");
-        if(d.businessType==='education')f.push("Clery Act mandates campus security policies and incident reporting");
-        if(d.businessType==='financial')f.push("Financial regulations (GLBA, SOX) require physical security of sensitive data");
+        if(bt==='healthcare')f.push("HIPAA requires physical safeguards for areas containing protected health information");
+        if(bt==='education')f.push("Clery Act mandates campus security policies and incident reporting");
+        if(bt==='financial')f.push("Financial regulations (GLBA, SOX) require physical security of sensitive data");
         if(d.sensitiveData==='yes')f.push("Regulated data on premises requires documented access controls and audit trails");
-        if(d.businessType==='government')f.push("Government facilities require compliance with federal physical security standards");
+        if(bt==='government')f.push("Government facilities require compliance with federal physical security standards");
+        // Vertical findings
+        if(bt==='healthcare'&&d.pharmacyOnSite==='yes')f.push("On-site pharmacy requires DEA-compliant controlled substance security protocols");
+        if(bt==='manufacturing'&&d.ipSensitivity==='high')f.push("Highly sensitive IP requires strict access controls and visitor escort protocols");
+        if(bt==='construction'&&d.fireWatch==='yes')f.push("Fire watch requirements carry specific OSHA compliance obligations");
         if(f.length===0)f.push("Standard security practices should meet your regulatory requirements");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
-      getRec:(v,d)=>d.sensitiveData!=='no'?"Implement documented access controls for sensitive areas with visitor logging and audit capability":"Maintain security logs and incident reports to demonstrate due diligence"
+      getRec:(v,d)=>{
+        if(bt==='healthcare')return "Implement HIPAA-compliant physical security with access logging, camera coverage of PHI areas, and pharmacy security";
+        if(d.sensitiveData!=='no')return "Implement documented access controls for sensitive areas with visitor logging and audit capability";
+        return "Maintain security logs and incident reports to demonstrate due diligence";
+      }
     },
     {name:"Technology & Monitoring",base:profile.technology,
       calc:()=>{
         const camM={none:1.3,some:1.1,full:.9}[d.cameras]||1;
         const almM={no:1.2,basic:1.05,monitored:.9}[d.alarm]||1;
         const accM={none:1.2,partial:1.05,full:.9}[d.accessControl]||1;
-        return clamp(profile.technology*(camM+almM+accM)/3*1.1);
+        return clamp(profile.technology*(camM+almM+accM)/3*1.1+verticalBoost*.15);
       },
       getFindings:(v,d)=>{
         const f=[];
@@ -754,8 +1083,13 @@ function calculateAssessment(d){
         else if(d.cameras==='some')f.push("Partial camera coverage may leave blind spots in critical areas");
         if(d.alarm==='no')f.push("No alarm system — intrusion detection relies entirely on physical observation");
         if(d.accessControl==='none')f.push("No electronic access control — no audit trail for facility entry/exit");
+        // Vertical findings
+        if(bt==='warehouse'&&d.docks&&d.docks!=='none')f.push("Loading dock areas should have dedicated camera coverage with license plate capture capability");
+        if(bt==='healthcare'&&d.pharmacyOnSite==='yes')f.push("Pharmacy requires dedicated camera monitoring and controlled access logging");
+        if(bt==='residential'&&d.packageDelivery==='yes')f.push("Package delivery area should have camera coverage to deter and document theft");
+        if(bt==='construction')f.push("Consider remote video monitoring with real-time alerts for after-hours site intrusion");
         if(f.length===0)f.push("Technology stack provides solid baseline monitoring capability");
-        return f.slice(0,3);
+        return f.slice(0,4);
       },
       getRec:(v,d)=>{
         if(d.cameras==='none'&&d.alarm==='no')return "Priority: install integrated camera and alarm systems before adding security personnel";
@@ -765,7 +1099,6 @@ function calculateAssessment(d){
     }
   ];
 
-  // Calculate each category
   const results=categories.map(c=>{
     const value=Math.round(c.calc());
     return{name:c.name,value,findings:c.getFindings(value,d),recommendation:c.getRec(value,d)};
@@ -774,39 +1107,40 @@ function calculateAssessment(d){
   const overall=Math.round(results.reduce((s,r)=>s+r.value,0)/results.length);
 
   // Guard & coverage recommendation
-  // "Posts" = how many guards on duty at once. "Guards" = total headcount needed to fill those posts.
-  const dockBonus=({none:0,few:0,moderate:1,many:2,major:3,mega:4}[d.docks])||0;
+  const dockBonus=({none:0,no:0,few:0,moderate:1,many:2,major:3,mega:4}[dockVal])||0;
   const basePosts=ep<=2?1:ep<=5?2:ep<=8?3:ep<=15?4:5;
   const sizeBonus=sqft>=250000?3:sqft>=100000?2:sqft>=50000?1:0;
   const floorBonus=floors>=10?2:floors>=4?1:0;
-  const postCount=Math.max(1,basePosts+sizeBonus+floorBonus+dockBonus);
 
-  // Weekly hours = posts × hours per post per week
-  // 24/7 = 168 hrs/week per post. Extended = 112 hrs (16hrs/day). Business = 50. Nights = 80.
-  let hrsPerPost,coverageDesc,weeklyHrs;
+  // Vertical-specific post bonuses
+  let vertPostBonus=0;
+  if(bt==='healthcare'&&d.emergencyDept&&d.emergencyDept!=='no')vertPostBonus+=1;
+  if(bt==='healthcare'&&d.behavioralUnit==='yes')vertPostBonus+=1;
+  if(bt==='events'&&d.venueCapacity&&['xlarge','mega'].includes(d.venueCapacity))vertPostBonus+=2;
+  if(bt==='events'&&d.vipAreas==='yes')vertPostBonus+=1;
+  if(bt==='residential'&&d.gatedEntry==='staffed')vertPostBonus+=1;
+  if(bt==='education'&&d.residenceHalls==='many')vertPostBonus+=1;
+
+  const postCount=Math.max(1,basePosts+sizeBonus+floorBonus+dockBonus+vertPostBonus);
+
+  let hrsPerPost,coverageDesc;
   if(d.hours==='24/7'){hrsPerPost=168;coverageDesc="24/7 coverage — "+postCount+" post"+(postCount>1?"s":"")+", 3 shifts/day, 7 days/week"}
   else if(d.hours==='extended'){hrsPerPost=112;coverageDesc="Extended hours (6AM–10PM) — "+postCount+" post"+(postCount>1?"s":"")+", 7 days/week"}
   else if(d.hours==='nights'){hrsPerPost=80;coverageDesc="Night & weekend coverage — "+postCount+" post"+(postCount>1?"s":"")}
   else{hrsPerPost=50;coverageDesc="Business hours + after-hours patrol — "+postCount+" post"+(postCount>1?"s":"")+", Mon–Fri"}
-  
-  weeklyHrs=postCount*hrsPerPost;
+
+  let weeklyHrs=postCount*hrsPerPost;
   const needsSupervisor=postCount>=3;
-  if(needsSupervisor){
-    // Supervisor covers same schedule as the guards
-    weeklyHrs+=hrsPerPost;
-    coverageDesc+=", plus dedicated shift supervisor";
-  }
-  
+  if(needsSupervisor){weeklyHrs+=hrsPerPost;coverageDesc+=", plus dedicated shift supervisor"}
   const totalGuards=postCount+(needsSupervisor?1:0);
 
-  // Pricing — Sam's real rates
   const armed=d.armed==='yes';
   const rateLow=armed?29:22;
   const rateHigh=armed?34:25;
   const monthlyLow=Math.round(weeklyHrs*4.33*rateLow);
   const monthlyHigh=Math.round(weeklyHrs*4.33*rateHigh);
 
-  return{overall,categories:results,totalGuards,postCount,weeklyHrs,coverageDesc,needsSupervisor,armed,monthlyLow,monthlyHigh,stateInfo:st,profile};
+  return{overall,categories:results,totalGuards,postCount,weeklyHrs,coverageDesc,needsSupervisor,armed,monthlyLow,monthlyHigh,stateInfo:st,profile,verticalBoost};
 }
 
 function clamp(v){return Math.max(10,Math.min(95,Math.round(v)))}
@@ -817,19 +1151,17 @@ function labelFor(v){return v>=70?'High Need':v>=50?'Elevated':v>=35?'Moderate':
 document.getElementById('assessmentForm').addEventListener('submit',function(e){
   e.preventDefault();
   if(!validateStep(5))return;
-  const fd=new FormData(this);
-  const data=Object.fromEntries(fd.entries());
+  const data=getAllFormData(this);
 
-  // Save lead
   const leadScore=data.currentSecurity==='none'||data.currentSecurity==='outsourced-switch'?'hot':
     data.currentSecurity==='outsourced-issues'||data.highValue==='yes'?'warm':'cool';
   const lead={...data,timestamp:new Date().toISOString(),leadScore};
   console.log('Lead captured:',lead);
   try{const leads=JSON.parse(localStorage.getItem('salient_leads')||'[]');leads.push(lead);localStorage.setItem('salient_leads',JSON.stringify(leads))}catch(e){}
-  // Send to CRM
-  try{fetch('https://crm.salient-group.com/api/leads/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'assessment',name:data.contactName||'',email:data.email||'',phone:data.phone||'',company:data.businessName||'',vertical:data.businessType||'',assessmentData:{riskScore:leadScore,businessName:data.businessName||'',address:(data.address||'')+', '+(data.city||'')+', '+(data.state||'')+' '+(data.zip||''),businessType:data.businessType||'',sqft:data.sqft||'',entryPoints:data.entryPoints||'',floors:data.floors||'',parking:data.parking||'',docks:data.docks||'',fencing:data.fencing||'',lighting:data.lighting||'',hours:data.hours||'',employees:data.employees||'',visitors:data.visitors||'',vehicleTraffic:data.vehicleTraffic||'',highValue:data.highValue||'',sensitiveData:data.sensitiveData||'',currentSecurity:data.currentSecurity||'',cameras:data.cameras||'',alarm:data.alarm||'',accessControl:data.accessControl||'',incidents:data.incidents||'',armed:data.armed||'',contactTitle:data.title||''}})})}catch(e){}
 
-  // Show loading
+  // Send ALL fields to CRM
+  try{fetch('https://crm.salient-group.com/api/leads/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'assessment',name:data.contactName||'',email:data.email||'',phone:data.phone||'',company:data.businessName||'',vertical:data.businessType||'',assessmentData:{...data,riskScore:leadScore,address:(data.address||'')+', '+(data.city||'')+', '+(data.state||'')+' '+(data.zip||''),contactTitle:data.title||''}})})}catch(e){}
+
   document.getElementById('formSection').style.display='none';
   document.getElementById('loadingScreen').style.display='block';
   const statuses=["Checking regional data...","Analyzing facility profile...","Calculating risk factors...","Generating recommendations...","Preparing your report..."];
@@ -844,21 +1176,49 @@ document.getElementById('assessmentForm').addEventListener('submit',function(e){
 });
 
 function showResults(data,r){
+  const bt=data.businessType;
   const res=document.getElementById('results');
   res.style.display='block';
   document.getElementById('resultsBusinessName').textContent=data.businessName+' — '+data.city+', '+(stateData[data.state]?.name||data.state);
   document.getElementById('reportDate').textContent='Report generated '+new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
 
-  // Executive summary
+  // Executive summary with vertical context
   const secStatus=data.currentSecurity==='none'?'currently operates without professional security coverage':
     data.currentSecurity==='inhouse'?'currently uses in-house security staff':
     data.currentSecurity==='outsourced-switch'?'is actively seeking a new security provider':
     data.currentSecurity==='outsourced-issues'?'has identified issues with their current security provider':
     'has an existing outsourced security arrangement';
+
+  let vertContext='';
+  if(bt==='warehouse'){
+    const dv=data.docks||'none';
+    if(dv!=='none')vertContext+=' The facility includes '+(dv==='mega'?'100+':dv==='major'?'51–100':dv==='many'?'21–50':dv==='moderate'?'6–20':'1–5')+' loading docks.';
+    if(data.highValueCargo==='yes')vertContext+=' High-value cargo is present on site.';
+  }else if(bt==='healthcare'){
+    if(data.facilityType)vertContext+=' This is a '+data.facilityType.replace(/-/g,' ')+' facility.';
+    if(data.emergencyDept&&data.emergencyDept!=='no')vertContext+=' The facility operates an emergency department.';
+  }else if(bt==='construction'){
+    if(data.constructionPhase)vertContext+=' The project is in the '+data.constructionPhase.replace(/-/g,' ')+' phase.';
+    if(data.equipmentValue==='very-high'||data.equipmentValue==='high')vertContext+=' Significant equipment value is present on site.';
+  }else if(bt==='retail'){
+    if(data.storeType)vertContext+=' This is a '+data.storeType.replace(/-/g,' ')+' retail location.';
+  }else if(bt==='events'){
+    if(data.venueType)vertContext+=' This is a '+data.venueType+' venue.';
+    if(data.venueCapacity)vertContext+=' Maximum capacity: '+(data.venueCapacity==='mega'?'50,000+':data.venueCapacity==='xlarge'?'10,000–50,000':data.venueCapacity==='large'?'2,000–10,000':data.venueCapacity==='medium'?'500–2,000':'under 500')+'.';
+  }else if(bt==='education'){
+    if(data.institutionType)vertContext+=' This is a '+data.institutionType.replace(/-/g,' ').replace('k12','K-12')+' institution.';
+  }else if(bt==='hospitality'){
+    if(data.propertyType)vertContext+=' This is a '+data.propertyType+' property.';
+  }else if(bt==='residential'){
+    if(data.communityType)vertContext+=' This is a '+data.communityType.replace(/-/g,' ')+' community.';
+  }else if(bt==='manufacturing'){
+    if(data.shiftOps)vertContext+=' Operations run on a '+data.shiftOps.replace(/-/g,' ').replace('24 7','24/7')+' schedule.';
+  }
+
   document.getElementById('execSummary').innerHTML=
     '<strong>'+data.businessName+'</strong> is a '+r.profile.label.toLowerCase()+' facility located in '+(stateData[data.state]?.name||data.state)+' that '+secStatus+'. '+
     'Based on the facility profile — '+Math.round(parseFloat(data.sqft)).toLocaleString()+' sq ft with '+Math.round(parseFloat(data.entryPoints))+' access points operating on a '+(data.hours==='24/7'?'24/7':data.hours==='extended'?'extended hours':data.hours==='nights'?'nights/weekends':'standard business hours')+' schedule — '+
-    'this assessment identifies an overall security needs score of <strong>'+r.overall+'/100</strong>, indicating <strong>'+labelFor(r.overall).toLowerCase()+'</strong> for professional security services.';
+    'this assessment identifies an overall security needs score of <strong>'+r.overall+'/100</strong>, indicating <strong>'+labelFor(r.overall).toLowerCase()+'</strong> for professional security services.'+vertContext;
 
   // Gauge
   const circ=490;
@@ -872,13 +1232,10 @@ function showResults(data,r){
   document.getElementById('scoreLabel').textContent=labelFor(r.overall);
   document.getElementById('scoreLabel').style.color=colorFor(r.overall);
 
-  // Crime data — try city-level first via FBI API, fall back to state
+  // Crime data
   const st=r.stateInfo;
-  const propDiff=Math.round((st.property/natAvgProperty-1)*100);
-  const violDiff=Math.round((st.violent/natAvgViolent-1)*100);
   const crimeEl=document.getElementById('crimeBox');
-  
-  // Start with state data
+
   function renderCrimeData(location,propRate,violRate,source){
     const pd=Math.round((propRate/natAvgProperty-1)*100);
     const vd=Math.round((violRate/natAvgViolent-1)*100);
@@ -889,8 +1246,7 @@ function showResults(data,r){
       '<div style="font-size:.7rem;color:var(--text-light);margin-top:.5rem">'+source+'</div>';
   }
   renderCrimeData(st.name+' (statewide)',st.property,st.violent,'Source: FBI Uniform Crime Reporting Program');
-  
-  // Try to fetch city-level data from FBI API
+
   const fbiKey='iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv';
   const stAbbr=data.state;
   const cityName=(data.city||'').trim();
@@ -920,7 +1276,7 @@ function showResults(data,r){
             }
           });
       }
-    }).catch(()=>{});// Silently fall back to state data
+    }).catch(()=>{});
   }
 
   // Risk bars with findings
@@ -954,7 +1310,7 @@ function showResults(data,r){
   // Investment
   document.getElementById('investRange').textContent='$'+r.monthlyLow.toLocaleString()+' – $'+r.monthlyHigh.toLocaleString();
 
-  // Benchmark — contextual based on their actual needs
+  // Benchmark
   const benchNote=r.weeklyHrs>=500?
     'Facilities of this scale typically represent contracts of $'+Math.round(r.monthlyLow*.85).toLocaleString()+'–$'+Math.round(r.monthlyHigh*1.15).toLocaleString()+'/month depending on specific operational requirements, shift complexity, and armed/unarmed needs.':
     r.weeklyHrs>=168?
