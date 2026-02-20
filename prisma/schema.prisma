@@ -1,0 +1,195 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Vertical {
+  logistics
+  commercial_re
+  construction
+  healthcare
+  education
+  events
+  hoa
+  government
+  hospitality
+  retail
+  manufacturing
+  other
+}
+
+enum Source {
+  uplead
+  instantly
+  manual
+  import
+}
+
+enum ContactStatus {
+  new
+  contacted
+  interested
+  meeting_scheduled
+  proposal_sent
+  closed_won
+  closed_lost
+}
+
+enum InterestLevel {
+  hot
+  warm
+  cold
+  unknown
+  not_interested
+}
+
+enum CallOutcome {
+  meeting_booked
+  send_email
+  call_back
+  not_interested
+  wrong_person
+  voicemail
+  no_answer
+  gatekeeper_block
+}
+
+enum MeetingStatus {
+  scheduled
+  completed
+  no_show
+  cancelled
+  rescheduled
+}
+
+enum CampaignStatus {
+  active
+  paused
+  warming
+  completed
+}
+
+enum ActivityType {
+  call
+  email_sent
+  email_opened
+  email_replied
+  meeting_booked
+  meeting_completed
+  note_added
+  status_changed
+  lead_created
+}
+
+model Contact {
+  id                    String        @id @default(cuid())
+  firstName            String        @map("first_name")
+  lastName             String        @map("last_name")
+  email                String?
+  phone                String?
+  title                String?
+  companyName          String        @map("company_name")
+  companyDomain        String?       @map("company_domain")
+  vertical             Vertical
+  state                String?       // US state code
+  source               Source
+  status               ContactStatus @default(new)
+  interestLevel        InterestLevel @map("interest_level") @default(unknown)
+  currentProvider      String?       @map("current_provider")
+  contractRenewal      DateTime?     @map("contract_renewal")
+  estimatedDealValue   Decimal?      @map("estimated_deal_value") @db.Decimal(10, 2)
+  leadScore           Int           @map("lead_score") @default(0)
+  tags                String[]
+  notes               String?
+  createdAt           DateTime      @default(now()) @map("created_at")
+  updatedAt           DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  calls               Call[]
+  meetings            Meeting[]
+  activities          Activity[]
+
+  @@map("contacts")
+}
+
+model Call {
+  id                          String        @id @default(cuid())
+  contactId                   String        @map("contact_id")
+  retellCallId               String        @map("retell_call_id")
+  durationSeconds            Int           @map("duration_seconds")
+  outcome                    CallOutcome
+  interestLevel              InterestLevel @map("interest_level")
+  transcriptSummary          String?       @map("transcript_summary")
+  keyNotes                   String?       @map("key_notes")
+  currentProviderMentioned   String?       @map("current_provider_mentioned")
+  contractRenewalMentioned   String?       @map("contract_renewal_mentioned")
+  emailCollected             String?       @map("email_collected")
+  meetingTime                DateTime?     @map("meeting_time")
+  recordingUrl               String?       @map("recording_url")
+  createdAt                  DateTime      @default(now()) @map("created_at")
+
+  // Relations
+  contact                    Contact       @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  meetings                   Meeting[]
+
+  @@map("calls")
+}
+
+model Meeting {
+  id              String        @id @default(cuid())
+  contactId       String        @map("contact_id")
+  callId          String?       @map("call_id")
+  calBookingId    String?       @map("cal_booking_id")
+  scheduledAt     DateTime      @map("scheduled_at")
+  durationMinutes Int          @map("duration_minutes") @default(15)
+  meetingUrl      String?       @map("meeting_url")
+  status          MeetingStatus @default(scheduled)
+  prepNotes       String?       @map("prep_notes")
+  outcomeNotes    String?       @map("outcome_notes")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  contact         Contact       @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  call            Call?         @relation(fields: [callId], references: [id])
+
+  @@map("meetings")
+}
+
+model EmailCampaign {
+  id           String         @id @default(cuid())
+  name         String
+  vertical     Vertical
+  status       CampaignStatus @default(active)
+  domain       String
+  totalSent    Int           @map("total_sent") @default(0)
+  totalOpened  Int           @map("total_opened") @default(0)
+  totalReplied Int           @map("total_replied") @default(0)
+  totalBounced Int           @map("total_bounced") @default(0)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  @@map("email_campaigns")
+}
+
+model Activity {
+  id          String       @id @default(cuid())
+  contactId   String       @map("contact_id")
+  type        ActivityType
+  title       String
+  description String?
+  metadata    Json?
+  createdAt   DateTime     @default(now()) @map("created_at")
+
+  // Relations
+  contact     Contact      @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@map("activities")
+}
