@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "DATABASE_URL": "@database-url",
+    "FBI_API_KEY": "iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv",
+    "TELEGRAM_BOT_TOKEN": "@telegram-bot-token",
+    "TELEGRAM_CHAT_ID": "8049307730"
+  }
+}

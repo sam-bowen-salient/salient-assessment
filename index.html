@@ -193,6 +193,12 @@ footer a{color:var(--blue);text-decoration:none}
     <h1>Business Security Assessment</h1>
     <p class="subtitle">Get a detailed, data-driven analysis of your facility's security needs</p>
     <p class="trust-line">Trusted by businesses across the United States · Takes 2 minutes</p>
+    
+    <div style="text-align:center;margin:1rem 0;display:none" id="saveResumeBar">
+      <button type="button" onclick="saveProgress()" style="background:var(--gray);color:var(--text);padding:0.4rem 1rem;border:none;border-radius:4px;font-size:0.75rem;margin:0 0.25rem;cursor:pointer">💾 Save Progress</button>
+      <button type="button" onclick="loadProgress()" style="background:var(--gray);color:var(--text);padding:0.4rem 1rem;border:none;border-radius:4px;font-size:0.75rem;margin:0 0.25rem;cursor:pointer">📂 Load Saved</button>
+      <span id="saveStatus" style="font-size:0.7rem;color:var(--green);margin-left:0.5rem"></span>
+    </div>
 
     <div class="progress-wrap">
       <div class="progress-steps s1" id="progressSteps">
@@ -1159,31 +1165,76 @@ function colorFor(v){return v>=70?'var(--red)':v>=50?'var(--orange)':v>=35?'var(
 function labelFor(v){return v>=70?'High Need':v>=50?'Elevated':v>=35?'Moderate':'Lower Need'}
 
 // Form submit
-document.getElementById('assessmentForm').addEventListener('submit',function(e){
+// Global variable to store FBI crime data
+let globalCrimeData = null;
+
+document.getElementById('assessmentForm').addEventListener('submit',async function(e){
   e.preventDefault();
   if(!validateStep(5))return;
   const data=getAllFormData(this);
 
-  const leadScore=data.currentSecurity==='none'||data.currentSecurity==='outsourced-switch'?'hot':
-    data.currentSecurity==='outsourced-issues'||data.highValue==='yes'?'warm':'cool';
-  const lead={...data,timestamp:new Date().toISOString(),leadScore};
-  console.log('Lead captured:',lead);
-  try{const leads=JSON.parse(localStorage.getItem('salient_leads')||'[]');leads.push(lead);localStorage.setItem('salient_leads',JSON.stringify(leads))}catch(e){}
+  // Calculate assessment first for enrichment
+  const assessment = calculateAssessment(data);
+  
+  // Prepare enriched submission data
+  const submissionData = {
+    ...data,
+    timestamp: new Date().toISOString(),
+    overallScore: assessment.overall,
+    concerns: assessment.categories.map(c => c.name + ': ' + c.recommendation).slice(0, 5)
+  };
 
-  // Send ALL fields to CRM
-  try{fetch('https://crm.salient-group.com/api/leads/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'assessment',name:data.contactName||'',email:data.email||'',phone:data.phone||'',company:data.businessName||'',vertical:data.businessType||'',assessmentData:{...data,riskScore:leadScore,address:(data.address||'')+', '+(data.city||'')+', '+(data.state||'')+' '+(data.zip||''),contactTitle:data.title||''}})})}catch(e){}
+  // Store locally as backup
+  try{
+    const leads=JSON.parse(localStorage.getItem('salient_leads')||'[]');
+    leads.push(submissionData);
+    localStorage.setItem('salient_leads',JSON.stringify(leads));
+  }catch(e){console.error('localStorage error:',e)}
 
+  // Show loading screen
   document.getElementById('formSection').style.display='none';
   document.getElementById('loadingScreen').style.display='block';
-  const statuses=["Checking regional data...","Analyzing facility profile...","Calculating risk factors...","Generating recommendations...","Preparing your report..."];
+  const statuses=[
+    "Fetching FBI crime data for "+data.city+"...",
+    "Analyzing facility profile...",
+    "Calculating risk factors...",
+    "Saving to CRM database...",
+    "Sending Telegram notification...",
+    "Generating recommendations...",
+    "Preparing your report..."
+  ];
   let si=0;
-  const loadInt=setInterval(()=>{si++;if(si<statuses.length)document.getElementById('loadingStatus').textContent=statuses[si]},600);
+  const loadInt=setInterval(()=>{si++;if(si<statuses.length)document.getElementById('loadingStatus').textContent=statuses[si]},800);
 
+  // Submit to new API endpoint
+  try {
+    const response = await fetch('/api/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(submissionData)
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      // Store crime data globally for display
+      globalCrimeData = result.crimeData;
+      console.log('Assessment submitted successfully. Lead ID:', result.leadId);
+      console.log('Crime data:', result.crimeData);
+    } else {
+      console.error('Submission failed:', result.error);
+    }
+  } catch (error) {
+    console.error('API submission error:', error);
+    // Continue anyway - we can still show results from client-side calculation
+  }
+
+  // Always show results after delay
   setTimeout(()=>{
     clearInterval(loadInt);
     document.getElementById('loadingScreen').style.display='none';
-    showResults(data,calculateAssessment(data));
-  },3200);
+    showResults(data, assessment);
+  }, 6000);
 });
 
 function showResults(data,r){
@@ -1244,25 +1295,58 @@ function showResults(data,r){
   document.getElementById('scoreLabel').textContent=labelFor(r.overall);
   document.getElementById('scoreLabel').style.color=colorFor(r.overall);
 
-  // Crime data
+  // Crime data (prioritize server-side FBI data if available)
   const st=r.stateInfo;
   const crimeEl=document.getElementById('crimeBox');
 
-  function renderCrimeData(location,propRate,violRate,source){
+  function renderCrimeData(location,propRate,violRate,source,additionalStats){
     const pd=Math.round((propRate/natAvgProperty-1)*100);
     const vd=Math.round((violRate/natAvgViolent-1)*100);
+    
+    let additionalHTML = '';
+    if (additionalStats && typeof additionalStats === 'object') {
+      // Add breakdowns if available
+      const breakdown = [];
+      if (additionalStats.burglary_rate) breakdown.push('Burglary: ' + Math.round(additionalStats.burglary_rate).toLocaleString());
+      if (additionalStats.larceny_rate) breakdown.push('Larceny: ' + Math.round(additionalStats.larceny_rate).toLocaleString());
+      if (additionalStats.motor_vehicle_theft_rate) breakdown.push('Auto Theft: ' + Math.round(additionalStats.motor_vehicle_theft_rate).toLocaleString());
+      if (additionalStats.robbery_rate) breakdown.push('Robbery: ' + Math.round(additionalStats.robbery_rate).toLocaleString());
+      if (additionalStats.aggravated_assault_rate) breakdown.push('Assault: ' + Math.round(additionalStats.aggravated_assault_rate).toLocaleString());
+      
+      if (breakdown.length > 0) {
+        additionalHTML = '<div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-light);border-top:1px solid rgba(0,0,0,0.05);padding-top:0.5rem">' +
+          '<strong>Breakdown (per 100K):</strong> ' + breakdown.join(' | ') +
+          '</div>';
+      }
+    }
+    
     crimeEl.innerHTML=
       '<h4>📊 Regional Context — '+location+'</h4>'+
       '<div class="crime-stat"><span class="label">Property incidents per 100K</span><span class="value">'+propRate.toLocaleString()+' <span class="compare '+(pd>=0?'above':'below')+'">'+(pd>=0?'▲':'▼')+' '+Math.abs(pd)+'% vs national avg</span></span></div>'+
       '<div class="crime-stat"><span class="label">Violent incidents per 100K</span><span class="value">'+violRate.toLocaleString()+' <span class="compare '+(vd>=0?'above':'below')+'">'+(vd>=0?'▲':'▼')+' '+Math.abs(vd)+'% vs national avg</span></span></div>'+
+      additionalHTML +
       '<div style="font-size:.7rem;color:var(--text-light);margin-top:.5rem">'+source+'</div>';
   }
-  renderCrimeData(st.name+' (statewide)',st.property,st.violent,'Source: FBI Uniform Crime Reporting Program');
-
-  const fbiKey='iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv';
-  const stAbbr=data.state;
+  
+  // Check if we have server-side FBI data first
+  if (globalCrimeData && globalCrimeData.property_crime_rate && globalCrimeData.violent_crime_rate) {
+    renderCrimeData(
+      data.state + ' (' + globalCrimeData.year + ')',
+      globalCrimeData.property_crime_rate,
+      globalCrimeData.violent_crime_rate,
+      'Source: FBI Uniform Crime Reporting Program (latest available data)',
+      globalCrimeData
+    );
+  } else {
+    // Fallback to statewide static data
+    renderCrimeData(st.name+' (statewide)',st.property,st.violent,'Source: FBI Uniform Crime Reporting Program (static baseline)');
+  }
+  
+  // Optional: Still try to fetch city-level data as enhancement (but don't override if we have good server data)
   const cityName=(data.city||'').trim();
-  if(cityName&&stAbbr){
+  if(!globalCrimeData && cityName && data.state){
+    const fbiKey='iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv';
+    const stAbbr=data.state;
     fetch('https://api.usa.gov/crime/fbi/sapi/api/agency/byStateAbbr/'+stAbbr+'?API_KEY='+fbiKey)
     .then(r=>r.json()).then(agencies=>{
       const match=agencies.find(a=>(a.agency_name||'').toLowerCase().includes(cityName.toLowerCase()))||
@@ -1349,6 +1433,83 @@ function shareResults(){
   const text='Security Assessment Report — '+biz+'\nOverall Score: '+score+'/100\nEstimated Investment: '+invest+'/month\n\nGet your free assessment: '+window.location.href;
   navigator.clipboard.writeText(text).then(()=>alert('Summary copied to clipboard!')).catch(()=>{});
 }
+
+// Save/Resume functionality
+function saveProgress() {
+  const form = document.getElementById('assessmentForm');
+  const data = getAllFormData(form);
+  data.savedStep = currentStep;
+  data.savedTimestamp = new Date().toISOString();
+  
+  try {
+    localStorage.setItem('salient_assessment_progress', JSON.stringify(data));
+    document.getElementById('saveStatus').textContent = '✓ Progress saved';
+    setTimeout(() => {
+      document.getElementById('saveStatus').textContent = '';
+    }, 3000);
+  } catch (e) {
+    alert('Failed to save progress. Please check your browser settings.');
+  }
+}
+
+function loadProgress() {
+  try {
+    const saved = localStorage.getItem('salient_assessment_progress');
+    if (!saved) {
+      alert('No saved progress found.');
+      return;
+    }
+    
+    const data = JSON.parse(saved);
+    const form = document.getElementById('assessmentForm');
+    
+    // Restore all form fields
+    Object.keys(data).forEach(key => {
+      if (key === 'savedStep' || key === 'savedTimestamp') return;
+      
+      const field = form.querySelector(`[name="${key}"]`);
+      if (field) {
+        if (field.type === 'checkbox') {
+          field.checked = (data[key] === 'yes');
+        } else {
+          field.value = data[key];
+        }
+      }
+    });
+    
+    // Trigger vertical questions if we're past step 1
+    if (data.savedStep >= 2 && data.businessType) {
+      renderVerticalQuestions(data.businessType);
+    }
+    
+    // Go to saved step
+    showStep(data.savedStep || 1);
+    
+    const savedDate = new Date(data.savedTimestamp).toLocaleString();
+    document.getElementById('saveStatus').textContent = '✓ Loaded progress from ' + savedDate;
+    setTimeout(() => {
+      document.getElementById('saveStatus').textContent = '';
+    }, 5000);
+  } catch (e) {
+    alert('Failed to load progress. Data may be corrupted.');
+  }
+}
+
+// Show save/resume bar after first interaction
+let hasInteracted = false;
+document.getElementById('assessmentForm').addEventListener('input', function() {
+  if (!hasInteracted) {
+    document.getElementById('saveResumeBar').style.display = 'block';
+    hasInteracted = true;
+  }
+}, {once: true});
+
+// Auto-save on step change
+const originalNextStep = nextStep;
+nextStep = function(n) {
+  saveProgress();
+  originalNextStep(n);
+};
 </script>
 </body>
 </html>
